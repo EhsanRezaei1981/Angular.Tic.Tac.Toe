@@ -1,0 +1,82 @@
+<div class="container-fluid justify-content text-center">
+  <div class="row">
+    <div class="card col-3">
+      <div class="card-header">
+        Player 1(<i class="fa fa-times"></i>)
+        <strong>
+          {{ currentPlayerNo === 1 ? " (Your Turn)" : "" }}
+        </strong>
+      </div>
+      <div class="card-body">
+        <i class="fa fa-user player" [class.text-success]="winner === 0"></i>
+      </div>
+      <div class="card-footer text-muted">
+        <strong>{{ player1Score }}</strong>
+      </div>
+    </div>
+    <div class="card col-6">
+      <div class="card-header">
+        Enjoy Your Tic Tac Toe Game
+      </div>
+      <div class="card-body">
+        <h5 class="card-title text-uppercase">Do not forget</h5>
+        <p class="card-text">
+          The player who succeeds in placing three of their marks in a
+          horizontal, vertical, or diagonal row wins the game.
+        </p>
+        <div class="col-12">
+          <button
+            *ngIf="isStarted"
+            class="btn btn-primary m-2"
+            (click)="restartHandleClick()"
+          >
+            Restart
+          </button>
+          <button
+            *ngIf="isRoundFinished"
+            class="btn btn-success"
+            (click)="nextRoundHandleClick()"
+          >
+            Next Round
+          </button>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        {{ getCurrentDate() | date: "mediumDate" }}
+      </div>
+    </div>
+    <div class="card col-3">
+      <div class="card-header">
+        Player 2(<i class="fa fa-circle-o"></i>)
+        <strong>
+          {{ currentPlayerNo === 2 ? " (Your Turn)" : "" }}
+        </strong>
+      </div>
+      <div class="card-body">
+        <i class="fa fa-user player" [class.text-success]="winner === 1"></i>
+      </div>
+      <div class="card-footer text-muted">
+        <strong>{{ player2Score }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-4"></div>
+    <div class="grid col-4">
+      <div *ngFor="let row of grid; index as rowIndex" class="gridRow">
+        <div
+          *ngFor="let cell of row; index as colIndex"
+          class="gridCell"
+          (click)="cellHandleClick(rowIndex, colIndex)"
+        >
+          <span [ngSwitch]="cell">
+            <i *ngSwitchCase="0" class="fa fa-times cellSelected"></i>
+            <i *ngSwitchCase="1" class="fa fa-circle-o cellSelected"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>
